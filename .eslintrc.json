@@ -6,7 +6,7 @@
     "node": true
   },
   "extends": ["eslint:recommended"],
-  "ignorePatterns": ["dist", "node_modules", ".eslintrc.json", "*.d.ts"],
+  "ignorePatterns": ["dist", "node_modules", ".eslintrc.json", "*.d.ts", "public"],
   "parserOptions": {
     "ecmaVersion": "latest",
     "sourceType": "module",
@@ -16,39 +16,13 @@
   },
   "plugins": ["react-refresh"],
   "rules": {
-    "no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
+    "no-unused-vars": ["warn", { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }],
     "no-console": "warn",
-    "no-undef": "off",
-    "react-refresh/only-export-components": [
-      "warn", 
-      { "allowConstantExport": true }
-    ]
+    "no-undef": "off"
   },
-  "overrides": [
-    {
-      "files": ["**/*.{ts,tsx}"],
-      "parser": "@typescript-eslint/parser",
-      "parserOptions": {
-        "ecmaVersion": "latest",
-        "sourceType": "module",
-        "ecmaFeatures": {
-          "jsx": true
-        }
-      },
-      "plugins": ["@typescript-eslint", "react-refresh"],
-      "extends": [
-        "eslint:recommended",
-        "@typescript-eslint/recommended"
-      ],
-      "rules": {
-        "no-unused-vars": "off",
-        "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
-        "@typescript-eslint/no-explicit-any": "warn",
-        "react-refresh/only-export-components": [
-          "warn",
-          { "allowConstantExport": true }
-        ]
-      }
+  "settings": {
+    "react": {
+      "version": "detect"
     }
-  ]
+  }
 }

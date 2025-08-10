@@ -52,9 +52,9 @@ jobs:
       - name: Debug ESLint packages
         run: |
           echo "Checking ESLint packages..."
-          yarn list @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-react-refresh || true
-          echo "ESLint config test..."
-          npx eslint --print-config src/App.tsx || true
+          ls -la node_modules/@typescript-eslint/ || true
+          echo "ESLint modules available:"
+          find node_modules -name "*eslint*" -type d | head -10 || true
 
       - name: Lint code
         run: yarn lint
