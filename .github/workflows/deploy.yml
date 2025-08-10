@@ -49,6 +49,13 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
+      - name: Debug ESLint packages
+        run: |
+          echo "Checking ESLint packages..."
+          yarn list @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-react-refresh || true
+          echo "ESLint config test..."
+          npx eslint --print-config src/App.tsx || true
+
       - name: Lint code
         run: yarn lint
 
