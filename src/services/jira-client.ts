@@ -12,12 +12,10 @@ import { ApiError } from '@/types/app';
 export class JiraClient {
   private client: AxiosInstance;
   private serverUrl: string;
-  private email: string;
   private token: string;
 
-  constructor(serverUrl: string, email: string, token: string) {
+  constructor(serverUrl: string, token: string) {
     this.serverUrl = serverUrl.replace(/\/$/, ''); // Remove trailing slash
-    this.email = email;
     this.token = token;
 
     // Create axios instance with base configuration
@@ -27,10 +25,7 @@ export class JiraClient {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-      },
-      auth: {
-        username: this.email,
-        password: this.token,
+        'Authorization': `Bearer ${this.token}`,
       },
     });
 
@@ -209,17 +204,13 @@ export class JiraClient {
   /**
    * Update client configuration
    */
-  updateConfig(serverUrl: string, email: string, token: string): void {
+  updateConfig(serverUrl: string, token: string): void {
     this.serverUrl = serverUrl.replace(/\/$/, '');
-    this.email = email;
     this.token = token;
 
     // Update axios instance
     this.client.defaults.baseURL = `${this.serverUrl}/rest/api/2`;
-    this.client.defaults.auth = {
-      username: this.email,
-      password: this.token,
-    };
+    this.client.defaults.headers['Authorization'] = `Bearer ${this.token}`;
   }
 
   /**

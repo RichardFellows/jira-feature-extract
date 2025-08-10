@@ -2,7 +2,6 @@ import { JiraIssue, JiraField } from './jira-api';
 
 export interface ConnectionConfig {
   serverUrl: string;
-  email: string;
   token: string;
   isConnected: boolean;
   isLoading: boolean;

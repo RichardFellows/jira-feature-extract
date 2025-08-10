@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Input, Button, Alert, Card, Space, Typography, Tooltip } from 'antd';
-import { UserOutlined, KeyOutlined, LinkOutlined, CheckCircleOutlined } from '@ant-design/icons';
+import { KeyOutlined, LinkOutlined, CheckCircleOutlined } from '@ant-design/icons';
 import { useConnectionStore } from '@/stores/connection-store';
 
 const { Title, Text, Link } = Typography;
 
 interface ConnectionFormData {
   serverUrl: string;
-  email: string;
   token: string;
 }
 
@@ -17,7 +16,6 @@ export const ConnectionSetup: React.FC = () => {
   
   const {
     serverUrl,
-    email,
     token,
     isConnected,
     isLoading,
@@ -32,17 +30,16 @@ export const ConnectionSetup: React.FC = () => {
     // Initialize form with stored values
     form.setFieldsValue({
       serverUrl,
-      email,
       token,
     });
-  }, [form, serverUrl, email, token]);
+  }, [form, serverUrl, token]);
 
   const handleSubmit = async (values: ConnectionFormData) => {
     clearError();
     setIsTestingConnection(true);
     
     try {
-      const success = await connect(values.serverUrl, values.email, values.token);
+      const success = await connect(values.serverUrl, values.token);
       if (success) {
         // Connection successful - the store will handle the state update
       }
@@ -82,7 +79,7 @@ export const ConnectionSetup: React.FC = () => {
         {isConnected && userInfo ? (
           <Alert
             message={`Connected successfully as ${userInfo.displayName}`}
-            description={`Server: ${serverUrl} | Email: ${userInfo.emailAddress}`}
+            description={`Server: ${serverUrl}`}
             type="success"
             icon={<CheckCircleOutlined />}
             action={
@@ -96,7 +93,7 @@ export const ConnectionSetup: React.FC = () => {
             <div>
               <Title level={4}>Connect to JIRA Server</Title>
               <Text type="secondary">
-                Enter your JIRA server details and Personal Access Token (PAT) to connect.
+                Enter your JIRA server URL and Personal Access Token (PAT) to connect.
                 <br />
                 <Link 
                   href="https://confluence.atlassian.com/enterprise/using-personal-access-tokens-1026032365.html" 
@@ -137,22 +134,6 @@ export const ConnectionSetup: React.FC = () => {
                   placeholder="https://your-jira-server.com"
                   size="large"
                   autoComplete="url"
-                />
-              </Form.Item>
-
-              <Form.Item
-                name="email"
-                label="Email Address"
-                rules={[
-                  { required: true, message: 'Please enter your email address' },
-                  { type: 'email', message: 'Please enter a valid email address' },
-                ]}
-              >
-                <Input
-                  prefix={<UserOutlined />}
-                  placeholder="your.email@company.com"
-                  size="large"
-                  autoComplete="email"
                 />
               </Form.Item>
 

@@ -14,7 +14,6 @@ export class StorageService {
   saveConnection(config: ConnectionConfig, rememberCredentials: boolean = false): void {
     const dataToStore = {
       serverUrl: config.serverUrl,
-      email: rememberCredentials ? config.email : '',
       token: rememberCredentials ? config.token : '',
       isConnected: false, // Never persist connection state
     };
@@ -33,7 +32,6 @@ export class StorageService {
       const config = JSON.parse(stored);
       return {
         serverUrl: config.serverUrl || '',
-        email: config.email || '',
         token: config.token || '',
         isConnected: false,
         isLoading: false,

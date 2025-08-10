@@ -11,7 +11,7 @@ interface ConnectionState extends ConnectionConfig {
   // Actions
   setConfig: (config: Partial<ConnectionConfig>) => void;
   testConnection: () => Promise<boolean>;
-  connect: (serverUrl: string, email: string, token: string) => Promise<boolean>;
+  connect: (serverUrl: string, token: string) => Promise<boolean>;
   disconnect: () => void;
   clearError: () => void;
 }
@@ -21,7 +21,6 @@ const storageService = new StorageService();
 export const useConnectionStore = create<ConnectionState>((set, get) => ({
   // Initial state
   serverUrl: '',
-  email: '',
   token: '',
   isConnected: false,
   isLoading: false,
@@ -36,15 +35,15 @@ export const useConnectionStore = create<ConnectionState>((set, get) => ({
 
   testConnection: async (): Promise<boolean> => {
     const state = get();
-    if (!state.serverUrl || !state.email || !state.token) {
-      set({ error: 'Please provide server URL, email, and API token' });
+    if (!state.serverUrl || !state.token) {
+      set({ error: 'Please provide server URL and API token' });
       return false;
     }
 
     set({ isLoading: true, error: undefined });
 
     try {
-      const client = new JiraClient(state.serverUrl, state.email, state.token);
+      const client = new JiraClient(state.serverUrl, state.token);
       const userInfo = await client.testConnection();
       
       set({
@@ -58,7 +57,7 @@ export const useConnectionStore = create<ConnectionState>((set, get) => ({
       // Save connection config (respecting user preferences)
       const settings = storageService.loadSettings();
       storageService.saveConnection(
-        { serverUrl: state.serverUrl, email: state.email, token: state.token, isConnected: true, isLoading: false },
+        { serverUrl: state.serverUrl, token: state.token, isConnected: true, isLoading: false },
         settings.rememberCredentials
       );
 
@@ -77,10 +76,9 @@ export const useConnectionStore = create<ConnectionState>((set, get) => ({
     }
   },
 
-  connect: async (serverUrl: string, email: string, token: string): Promise<boolean> => {
+  connect: async (serverUrl: string, token: string): Promise<boolean> => {
     set({
       serverUrl: serverUrl.trim(),
-      email: email.trim(),
       token: token.trim(),
     });
 
