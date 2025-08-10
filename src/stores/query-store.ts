@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { QueryState, ApiError, JiraMetadata, QueryTemplate } from '@/types/app';
-import { JiraIssue, JiraField, JiraProject, JiraIssueType } from '@/types/jira-api';
+import { JiraIssue } from '@/types/jira-api';
 import { useConnectionStore } from './connection-store';
 import { StorageService } from '@/services/storage';
 

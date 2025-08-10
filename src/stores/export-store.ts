@@ -1,6 +1,5 @@
 import { create } from 'zustand';
 import { ExportConfig, ExportState, ProgressInfo } from '@/types/app';
-import { JiraIssue } from '@/types/jira-api';
 import { ExportService } from '@/services/export-service';
 import { useQueryStore } from './query-store';
 
