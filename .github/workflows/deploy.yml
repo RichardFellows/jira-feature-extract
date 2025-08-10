@@ -36,17 +36,18 @@ jobs:
         run: corepack enable
 
       - name: Setup Yarn Cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             .yarn/cache
+            .yarn/unplugged
             .yarn/install-state.gz
           key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
 
       - name: Install dependencies
-        run: yarn install --immutable
+        run: yarn install --frozen-lockfile
 
       - name: Lint code
         run: yarn lint
@@ -58,10 +59,10 @@ jobs:
           VITE_BASE_URL: /${{ github.event.repository.name }}/
 
       - name: Setup Pages
-        uses: actions/configure-pages@v3
+        uses: actions/configure-pages@v4
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
 
@@ -75,4 +76,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v4
