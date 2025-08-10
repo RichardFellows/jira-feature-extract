@@ -19,6 +19,10 @@ dist/
 build/
 *.tsbuildinfo
 
+# GitHub Pages
+# Note: dist/ is built and deployed by GitHub Actions
+# Note: public/404.html should be committed for SPA routing
+
 # Runtime data
 pids/
 *.pid

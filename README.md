@@ -1,6 +1,14 @@
 # JIRA Client-Side Feature Extractor
 
+[![Deploy to GitHub Pages](https://github.com/YOUR_USERNAME/YOUR_REPO_NAME/actions/workflows/deploy.yml/badge.svg)](https://github.com/YOUR_USERNAME/YOUR_REPO_NAME/actions/workflows/deploy.yml)
+
 A modern TypeScript React application for extracting and exporting JIRA issues directly from your browser. No server required - all operations happen client-side with your JIRA Server v9.12.
+
+## 🚀 Live Demo
+
+**[Try the live demo →](https://YOUR_USERNAME.github.io/YOUR_REPO_NAME/)**
+
+*Replace YOUR_USERNAME and YOUR_REPO_NAME with your actual GitHub details*
 
 ## Features
 
@@ -51,6 +59,24 @@ yarn preview
 ```
 
 The built files will be in the `dist/` directory and can be served from any web server.
+
+### Deploy to GitHub Pages
+
+This project is configured for automatic deployment to GitHub Pages:
+
+1. **Enable GitHub Pages** in your repository settings:
+   - Go to Settings → Pages
+   - Select "GitHub Actions" as the source
+   
+2. **Push to main branch** - deployment happens automatically via GitHub Actions
+
+3. **Access your app** at: `https://your-username.github.io/your-repo-name/`
+
+The deployment workflow:
+- ✅ Builds the project with `yarn build`
+- ✅ Runs linting to ensure code quality
+- ✅ Optimizes assets for production
+- ✅ Deploys to GitHub Pages automatically
 
 ## Usage
 
@@ -170,6 +196,9 @@ yarn dev         # Start development server
 yarn build       # Build for production
 yarn preview     # Preview production build
 yarn lint        # Run ESLint
+
+# Build for GitHub Pages locally (optional)
+VITE_BASE_URL=/your-repo-name/ yarn build
 ```
 
 ### Environment Variables

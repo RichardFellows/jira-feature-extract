@@ -4,6 +4,7 @@ import { resolve } from 'path'
 
 export default defineConfig({
   plugins: [react()],
+  base: process.env.VITE_BASE_URL || '/',
   resolve: {
     alias: {
       '@': resolve(__dirname, './src'),
@@ -16,5 +17,6 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: true,
+    assetsDir: 'assets',
   },
 })
